@@ -25,16 +25,16 @@ public class PeopleController {
         return "people/index";
     }
 
+    // gets one person by id from DAO and sends to view
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        // gets one person by id from DAO and sends to view
         model.addAttribute("person", personDAO.show(id));
         return "people/show";
     }
 
+    //return form page with person object
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person) {
-        //return form page with person object
         return "people/new";
     }
 
@@ -58,5 +58,13 @@ public class PeopleController {
         personDAO.update(id, person);
         return "redirect:/people";
     }
+
+    //delete specific person via delete method
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id){
+        personDAO.delete(id);
+        return "redirect:/people";
+    }
+
 
 }
