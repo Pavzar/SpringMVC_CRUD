@@ -63,13 +63,16 @@ public class PersonDAO {
 
     public void save(Person person) {
         try {
-            Statement statement = connection.createStatement();
+            //better than just statement to prevent sql injection
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("INSERT INTO Person VALUES (1, ?, ?, ?)");
+            preparedStatement.setString(1, person.getName());
+            preparedStatement.setInt(2,person.getAge());
+            preparedStatement.setString(3, person.getEmail());
 
-            //just to test insertion to db
-            String SQL = "INSERT INTO Person VALUES(" + 1 + ",'" + person.getName() + "'," + person.getAge() + ",'" + person.getEmail() + "')";
-            statement.executeUpdate(SQL);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
