@@ -31,7 +31,7 @@ public class PersonDAO {
     }
 
     public void save(Person person) {
-        jdbcTemplate.update("INSERT INTO Person VALUES (1, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO Person(name, age, email) VALUES (?, ?, ?)",
                 person.getName(), person.getAge(), person.getEmail());
     }
 
@@ -77,7 +77,7 @@ public class PersonDAO {
                 ps.setString(2, people.get(i).getName());
                 ps.setInt(3, people.get(i).getAge());
                 ps.setString(4, people.get(i).getEmail());
-        }
+            }
 
             @Override
             public int getBatchSize() {
