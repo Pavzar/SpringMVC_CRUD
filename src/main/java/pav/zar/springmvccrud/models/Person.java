@@ -1,10 +1,7 @@
 package pav.zar.springmvccrud.models;
 
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Person {
 
@@ -18,16 +15,20 @@ public class Person {
     @Email(message = "Email should be valid")
     private String email;
 
-    public Person(int id, String name, int age, String email) {
+    //Country, City, index(6 numbers)
+    @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{5}",
+            message = "Your address should be in this format: Country, City, Postal Code (5 digits)")
+    private String address;
+
+    public Person(int id, String name, int age, String email, String address) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.email = email;
+        this.address = address;
     }
 
     public Person(){}
-
-
     public int getAge() {
         return age;
     }
@@ -63,4 +64,11 @@ public class Person {
     }
 
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }
